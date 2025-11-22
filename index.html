@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Background with Clickable PNG Overlays</title>
+  <style>
+    /* --- Page & Background --- */
+    :root {
+      /* Tweak these to reposition/resize quickly */
+      --shape1-width: 22vw;
+      --shape1-left: 8vw;
+      --shape1-top: 12vh;
+
+      --shape2-width: 26vw;
+      --shape2-right: 10vw;
+      --shape2-bottom: 8vh;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      /* Replace with your background image path */
+      background: url("./background.jpg") center/cover no-repeat fixed;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      overflow: hidden; /* Prevent scrollbars if shapes sit outside */
+    }
+
+    /* Optional dark overlay for contrast; delete if not needed */
+    .backdrop-tint {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.0); /* increase to 0.2–0.4 for subtle dimming */
+      pointer-events: none;
+    }
+
+    /* --- Clickable PNG Shapes --- */
+    .shape-link {
+      position: fixed; /* positioned relative to viewport */
+      display: inline-block;
+      line-height: 0; /* remove extra inline whitespace */
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.25));
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .shape-link:focus-visible img,
+    .shape-link:hover img {
+      transform: translateY(-2px) scale(1.02);
+      filter: drop-shadow(0 14px 28px rgba(0,0,0,0.28));
+    }
+
+    .shape-link img {
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: inherit;
+    }
+
+    /* Shape #1: top-left */
+    .shape1 {
+      width: var(--shape1-width);
+      left: var(--shape1-left);
+      top: var(--shape1-top);
+    }
+
+    /* Shape #2: bottom-right */
+    .shape2 {
+      width: var(--shape2-width);
+      right: var(--shape2-right);
+      bottom: var(--shape2-bottom);
+    }
+
+    /* Basic responsiveness for very small screens */
+    @media (max-width: 520px) {
+      :root {
+        --shape1-width: 38vw;
+        --shape2-width: 44vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop-tint" aria-hidden="true"></div>
+
+  <!-- Shape 1 (PNG) -->
+  <a
+    class="shape-link shape1"
+    href="https://google.com"
+    target="_self"
+    aria-label="Go to Page One"
+  >
+    <!-- Replace src with your PNG that has transparency and a unique shape -->
+    <img src="./shape1.png" alt="Decorative shape linking to Page One" />
+  </a>
+
+  <!-- Shape 2 (PNG) -->
+  <a
+    class="shape-link shape2"
+    href="https://sarahbuckius.com"
+    target="_self"
+    aria-label="Go to Page Two"
+  >
+    <img src="./shape2.png" alt="Decorative shape linking to Page Two" />
+  </a>
+
+  <!-- Optional: If you want the links to open in a new tab, change target to _blank and include rel="noopener" -->
+  <!--
+  <a class="shape-link shape1" href="https://example.com/page-one" target="_blank" rel="noopener" aria-label="Go to Page One">
+    <img src="./shape1.png" alt="Decorative shape linking to Page One" />
+  </a>
+  -->
+</body>
+</html>
